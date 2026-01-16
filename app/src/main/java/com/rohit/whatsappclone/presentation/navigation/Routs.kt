@@ -12,6 +12,8 @@ sealed class AuthRouts {
     data object SignUpScreen: AuthRouts()
     @Serializable
     data object SignInScreen: AuthRouts()
+    @Serializable
+    data object SelectPPScreen: AuthRouts()
 }
 
 sealed class DashBoardRouts {
@@ -21,4 +23,13 @@ sealed class DashBoardRouts {
     data object HomeScreen: DashBoardRouts()
     @Serializable
     data object StatusScreen : DashBoardRouts()
+}
+@Serializable
+sealed class BottomNavigationRouts(val rout:String){
+    @Serializable
+    object DashBoardScreen: BottomNavigationRouts("Dashboard")
+    @Serializable
+    object StatusScreen: BottomNavigationRouts("Status")
+    @Serializable
+    object CallScreen: BottomNavigationRouts("Call")
 }

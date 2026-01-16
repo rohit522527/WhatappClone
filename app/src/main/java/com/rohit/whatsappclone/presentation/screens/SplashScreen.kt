@@ -47,7 +47,7 @@ fun SplashScreen(navController: NavController) {
             )
         )
         navController.navigate(
-            if (FirebaseAuth.getInstance().currentUser != null) DashBoardRouts.Root else AuthRouts.SignUpScreen
+            if (FirebaseAuth.getInstance().currentUser != null) DashBoardRouts.Root else AuthRouts.SignInScreen
         ) {
             popUpTo(0)
         }
