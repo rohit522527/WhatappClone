@@ -74,4 +74,6 @@ dependencies {
     ksp("com.google.dagger:hilt-android-compiler:2.57.1")
     //hilt + viewModel
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation("io.coil-kt:coil-compose:2.5.0")
+
 }

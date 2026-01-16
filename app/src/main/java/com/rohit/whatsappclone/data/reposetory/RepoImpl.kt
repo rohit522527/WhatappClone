@@ -21,11 +21,11 @@ class RepoImpl @Inject constructor(
 ) : Repo {
     override suspend fun createUser(userDTO: UserDTO): Flow<FirebaseResult<String>> =
         callbackFlow {
-            val rer = firebaseDatabase.reference.child("users").child(firebaseAuth.uid!!)
+            val rer = firebaseDatabase.reference.child("users")
             trySend(FirebaseResult.Loading)
             firebaseAuth.createUserWithEmailAndPassword(userDTO.email, userDTO.password)
                 .addOnSuccessListener { it ->
-                    rer.setValue(userDTO)
+                    rer.child(firebaseAuth.uid!!).setValue(userDTO.copy(uId = firebaseAuth.uid!!))
                         .addOnSuccessListener {
                             trySend(FirebaseResult.Success("Data saved Successfully"))
                             close()
@@ -40,10 +40,14 @@ class RepoImpl @Inject constructor(
             awaitClose {}
         }
 
-    override suspend fun updateUser(userDTO: UserDTO): Flow<FirebaseResult<String>> = callbackFlow {
+    override suspend fun updateUser(userName: String,profilePic: String): Flow<FirebaseResult<String>> = callbackFlow {
         trySend(FirebaseResult.Loading)
         val rer = firebaseDatabase.reference.child("users").child(firebaseAuth.uid!!)
-        rer.setValue(userDTO)
+        val updates= mapOf(
+            "userName" to userName,
+            "profilePic" to profilePic
+        )
+        rer.updateChildren(updates)
             .addOnSuccessListener {
                 trySend(FirebaseResult.Success("Data saved Successfully"))
                 close()
