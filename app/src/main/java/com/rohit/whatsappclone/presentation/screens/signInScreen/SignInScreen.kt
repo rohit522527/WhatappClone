@@ -1,4 +1,4 @@
-package com.rohit.whatsappclone.presentation.screens
+package com.rohit.whatsappclone.presentation.screens.signInScreen
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
@@ -29,7 +28,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -47,7 +45,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -61,11 +58,9 @@ import androidx.navigation.NavController
 import com.rohit.whatsappclone.R
 import com.rohit.whatsappclone.presentation.navigation.AuthRouts
 import com.rohit.whatsappclone.presentation.navigation.DashBoardRouts
-import com.rohit.whatsappclone.presentation.viewModels.SignInScreenVM
 import com.rohit.whatsappclone.ui.theme.appColor
 import com.rohit.whatsappclone.utils.FirebaseResult
 import com.rohit.whatsappclone.utils.MyTextField
-import kotlin.math.sign
 
 @Composable
 fun SignInScreen(navController: NavController) {

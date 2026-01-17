@@ -1,9 +1,6 @@
-package com.rohit.whatsappclone.presentation.screens
+package com.rohit.whatsappclone.presentation.screens.signUpScreen
 
-import android.widget.ImageButton
 import android.widget.Toast
-import androidx.collection.emptyIntSet
-import androidx.compose.animation.core.TwoWayConverter
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,26 +17,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -49,10 +38,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.fromColorLong
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -66,7 +52,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -75,11 +60,9 @@ import androidx.navigation.NavController
 import com.rohit.whatsappclone.R
 import com.rohit.whatsappclone.data.model.UserDTO
 import com.rohit.whatsappclone.presentation.navigation.AuthRouts
-import com.rohit.whatsappclone.presentation.viewModels.SignUpScreenVM
 import com.rohit.whatsappclone.ui.theme.appColor
 import com.rohit.whatsappclone.utils.FirebaseResult
 import com.rohit.whatsappclone.utils.MyTextField
-import kotlin.math.sign
 
 @Composable
 fun SignUpScreen(navController: NavController) {
@@ -90,7 +73,7 @@ fun SignUpScreen(navController: NavController) {
     var showPassword by remember { mutableStateOf(false) }
     var showConformPassword by remember { mutableStateOf(false) }
     var showLoading by remember { mutableStateOf(false) }
-    val signUpScreenVM: SignUpScreenVM= hiltViewModel()
+    val signUpScreenVM: SignUpScreenVM = hiltViewModel()
     val createUserState = signUpScreenVM.createUserState.collectAsStateWithLifecycle().value
     val context = LocalContext.current
 

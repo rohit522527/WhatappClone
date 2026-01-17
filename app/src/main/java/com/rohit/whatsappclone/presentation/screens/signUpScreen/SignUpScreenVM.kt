@@ -1,4 +1,5 @@
-package com.rohit.whatsappclone.presentation.viewModels
+package com.rohit.whatsappclone.presentation.screens.signUpScreen
+
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

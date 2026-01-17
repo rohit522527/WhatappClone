@@ -6,11 +6,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.rohit.whatsappclone.presentation.screens.HomeScreen
-import com.rohit.whatsappclone.presentation.screens.SelectPPScreen
-import com.rohit.whatsappclone.presentation.screens.SignInScreen
-import com.rohit.whatsappclone.presentation.screens.SignUpScreen
 import com.rohit.whatsappclone.presentation.screens.SplashScreen
 import com.rohit.whatsappclone.presentation.screens.StatusScreen
+import com.rohit.whatsappclone.presentation.screens.selectPPScreen.SelectPPScreen
+import com.rohit.whatsappclone.presentation.screens.signInScreen.SignInScreen
+import com.rohit.whatsappclone.presentation.screens.signUpScreen.SignUpScreen
 
 @Composable
 fun AppNavigation() {

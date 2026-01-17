@@ -1,10 +1,9 @@
-package com.rohit.whatsappclone.presentation.viewModels
+package com.rohit.whatsappclone.presentation.bottomNavScreens.dashBoardScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.rohit.whatsappclone.data.model.UserDTO
-import com.rohit.whatsappclone.domain.model.UserModel
 import com.rohit.whatsappclone.domain.useCases.GetAllUserUseCase
 import com.rohit.whatsappclone.utils.FirebaseResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,8 +13,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeScreenVM @Inject constructor(
-     val firebaseAuth: FirebaseAuth,
+class DashBoardScreenVM @Inject constructor(
+    val firebaseAuth: FirebaseAuth,
     val getAllUserUseCase: GetAllUserUseCase
 ): ViewModel() {
 
