@@ -1,6 +1,7 @@
 package com.rohit.whatsappclone.presentation.screens.selectPPScreen
 
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -51,6 +52,8 @@ import com.rohit.whatsappclone.R
 import com.rohit.whatsappclone.presentation.navigation.DashBoardRouts
 import com.rohit.whatsappclone.ui.theme.appColor
 import com.rohit.whatsappclone.utils.FirebaseResult
+import com.rohit.whatsappclone.utils.copyUriToFile
+import com.rohit.whatsappclone.utils.uploadImageToCloudinary
 
 @Composable
 fun SelectPPScreen(navController: NavHostController) {
@@ -150,7 +153,22 @@ fun SelectPPScreen(navController: NavHostController) {
         IconButton(
             onClick = {
                 if (userName.isNotEmpty()){
-                    selectPPScreenVM.updateUser(userName,userSelectedImage.toString())
+                    if (userSelectedImage!=null){
+                        val file = copyUriToFile(context,userSelectedImage!!)
+                        Log.d("tag","${file}")
+                        uploadImageToCloudinary(
+                            file =file,
+                            onSuccess = {url->
+                                selectPPScreenVM.updateUser(userName,url)
+                                Log.d("tag","image upload success")
+                            },
+                            onError = {
+                                Log.d("tag",it)
+                            }
+                        )
+                    }else{
+                        selectPPScreenVM.updateUser(userName,"")
+                    }
                 }
             },
             modifier = Modifier

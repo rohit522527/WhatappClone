@@ -75,5 +75,7 @@ dependencies {
     //hilt + viewModel
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     implementation("io.coil-kt:coil-compose:2.5.0")
+    //cloudnarry
+    implementation("com.cloudinary:cloudinary-android:2.3.1")
 
 }

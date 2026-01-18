@@ -23,6 +23,10 @@ sealed class DashBoardRouts {
     data object HomeScreen: DashBoardRouts()
     @Serializable
     data object StatusScreen : DashBoardRouts()
+    @Serializable
+    data object CallScreen : DashBoardRouts()
+    @Serializable
+    data class ChatScreen(val name:String,val userName: String,val profilePic:String,val uId: String) : DashBoardRouts()
 }
 @Serializable
 sealed class BottomNavigationRouts(val rout:String){

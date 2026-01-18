@@ -6,6 +6,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.getValue
+import com.rohit.whatsappclone.data.model.MessageDTO
 import com.rohit.whatsappclone.data.model.UserDTO
 import com.rohit.whatsappclone.domain.reposetory.Repo
 import com.rohit.whatsappclone.utils.FirebaseResult
@@ -89,5 +91,63 @@ class RepoImpl @Inject constructor(
                 close()
             }
         awaitClose {}
+    }
+
+    override suspend fun getMessage(receiverId: String): Flow<FirebaseResult<List<MessageDTO>>> = callbackFlow {
+        trySend(FirebaseResult.Loading)
+        val chatId= getChatId(firebaseAuth.currentUser!!.uid,receiverId)
+        val ref = firebaseDatabase.reference
+            .child("chats")
+            .child(chatId)
+            .child("messages")
+        val listener = object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+              val messages=mutableListOf<MessageDTO>()
+                snapshot.children.forEach {
+                    it.getValue(MessageDTO::class.java)?.let{msg->
+                        messages.add(msg)
+                    }
+                }
+                trySend(FirebaseResult.Success(messages))
+            }
+            override fun onCancelled(error: DatabaseError) {
+                trySend(FirebaseResult.Error(error.message))
+            }
+        }
+        ref.addValueEventListener(listener)
+        awaitClose {
+            ref.removeEventListener(listener)
+        }
+    }
+
+    override suspend fun sendMessage(messageDTO: MessageDTO,receiverId: String): Flow<FirebaseResult<String>> = callbackFlow {
+        trySend(FirebaseResult.Loading)
+        val currentUserId = firebaseAuth.currentUser!!.uid
+        val chatId=getChatId(currentUserId,receiverId)
+        val ref=firebaseDatabase.reference.child("chats")
+            .child(chatId)
+            .child("messages")
+
+        val messageId= ref.push().key?:run {
+            trySend(FirebaseResult.Error("Message Id not generated"))
+            close()
+            return@callbackFlow
+        }
+        val finalMessage=messageDTO.copy(messageId = messageId)
+        ref.child(messageId).setValue(messageDTO).addOnSuccessListener {
+            trySend(FirebaseResult.Success("message send successfully"))
+            close()
+        }.addOnFailureListener {
+            trySend(FirebaseResult.Error(it.message.toString()))
+            close()
+        }
+        awaitClose {  }
+    }
+    private  fun getChatId(senderId:String,receiverId:String):String{
+        return if(senderId>receiverId){
+            "${senderId}_$receiverId"
+        }else{
+            "${receiverId}_$senderId"
+        }
     }
 }
